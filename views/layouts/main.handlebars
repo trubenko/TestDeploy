@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{{title}}</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <script src="https://accounts.google.com/gsi/client" sync></script>
+</head>
+
+<body>
+  {{{body}}}
+
+  <div id="results"> Test me</div>
+  <script>
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: '496851495488-eic4oh09ogek352fdukk4io7e33eiv43.apps.googleusercontent.com',
+        callback: handleCredentialResponse
+      });
+
+      function handleCredentialResponse(data) {
+        console.log(data);
+      }
+      google.accounts.id.prompt();
+      google.accounts.id.renderButton(document.getElementById("results"), {
+        theme: 'outline',
+        size: 'large',
+        click_listener: onClickHandler
+      });
+    };
+
+
+  
+  function onClickHandler(){
+    console.log("Sign in with Google button clicked...")
+  }
+  onload();
+  </script>
+
+</body>
+
+</html>

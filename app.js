@@ -4,17 +4,26 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
+var expressHandlebars = require('express-handlebars');
+var mongoose = require('mongoose');
+
+// var CategoryModel = require('./models/categories');
+var Kitten = require('./models/kitty');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+var mongodDB = require('./db/connection');
+mongodDB.connect();
+
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.engine('handlebars', expressHandlebars.engine());
+app.set('view engine', 'handlebars');
 
-app.use(logger('dev'));
+// const uri = "mongodb+srv://TestTrubenko:SjEChkXOtoYGEvRd@testcluster.0usdk2e.mongodb.net/?retryWrites=true&w=majority";
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
